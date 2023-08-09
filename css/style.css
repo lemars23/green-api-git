@@ -1,0 +1,158 @@
+/* Стили настройки страницы */
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    color: #000;
+}
+
+input[type="text"] {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+
+    margin: 0;
+}
+
+.wrapper {
+    height: 100vh;
+
+    display: flex;
+}
+
+/* Стили для ввода данных */
+
+.wrapper-input {
+    width: 50%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-forms {
+    display: flex;
+    flex-direction: column;
+
+    width: 50%;
+
+    margin-top: 10%;
+}
+
+.input-text {
+    display: inline-block;
+    width: 100%;
+
+    height: calc(2.25rem + 2px);
+
+    font-family: inherit;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: center;
+
+    background-color: #fff;
+
+    border: 1px solid #bdbdbd;
+    border-radius: 0.25rem;
+
+    outline: none;
+}
+
+.input-text:focus {
+    border: 1px solid blue;
+    transition: all 0.5s ease;
+}
+
+.input-text:not(:focus) {
+    border: 1px solid #bdbdbd;
+    transition: all 0.5s ease;
+}
+
+.input-text:first-child {
+    margin-bottom: 1.5em;
+}
+
+.input-text:nth-child(2) {
+    margin-bottom: 2em;
+}
+
+.btns {
+    height: 3em;
+
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+
+    padding: 1px 7px 2px;
+
+    color: #383838;
+    text-align: center;
+    font-weight: 600;
+
+    display: inline-block;
+}
+
+.btns:hover {
+    border: 2px solid #686868;
+    transition: all 0.5s linear;
+}
+
+.btns:not(:hover) {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+    transition: all 0.5s ease;
+}
+
+.btn-getSettings {
+    margin-bottom: 2em;
+}
+
+/* Стили для вывода */
+
+.wrapper-data {
+    width: 50%;
+}
+
+.data-container {
+    width: 85%;
+    height: 90%;
+
+    background-color: #f1f1f1;
+}
+
+.data-gradient {
+    height: 100%;
+    width: 100%;
+
+    margin: 0 auto;
+
+    border: 10px solid transparent;
+    border-image: 10
+        repeating-linear-gradient(
+            45deg,
+            #a7cecc,
+            #a7cecc 10px,
+            transparent 10px,
+            transparent 20px,
+            #f8463f 20px,
+            #f8463f 30px,
+            transparent 30px,
+            transparent 40px
+        );
+}
+
+.data-output {
+    height: 100%;
+}
+
+.data-item {
+    margin: 0;
+    padding: 5px;
+}

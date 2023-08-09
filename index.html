@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Green Api</title>
+        <link rel="stylesheet" href="css/normalize.css" />
+        <link rel="stylesheet" href="css/style.css" />
+    </head>
+    <body>
+        <div class="wrapper">
+            <section class="wrapper-input input">
+                <form
+                    action=""
+                    method="post"
+                    class="input-formIdAndToken input-forms"
+                >
+                    <input
+                        type="text"
+                        name="idInstance"
+                        id=""
+                        class="input-text"
+                        placeholder="Введите IdInstance"
+                    />
+                    <input
+                        type="text"
+                        name="apiTokenInstance"
+                        id=""
+                        class="input-text"
+                        placeholder="Введите ApiTokenInstance"
+                    />
+                    <button type="submit" class="btn-getSettings btns">
+                        Получить getSettings
+                    </button>
+                    <button type="submit" class="btn-getStateInstance btns">
+                        Получить getStateInstance
+                    </button>
+                </form>
+                <form
+                    action=""
+                    method="post"
+                    class="input-formSendMessage input-forms"
+                >
+                    <input
+                        type="text"
+                        name="phoneNumber"
+                        id=""
+                        class="input-text"
+                        placeholder="Введите номер"
+                    />
+                    <input
+                        type="text"
+                        name="message"
+                        id=""
+                        class="input-text"
+                        placeholder="Введите сообщение"
+                    />
+                    <button type="submit" class="btn-sendMessage btns">
+                        Отправить сообщение
+                    </button>
+                </form>
+                <form
+                    action=""
+                    method="post"
+                    class="input-formSendImage input-forms"
+                >
+                    <input
+                        type="text"
+                        name="phoneNumber"
+                        id=""
+                        class="input-text"
+                        placeholder="Введите номер"
+                    />
+                    <input
+                        type="text"
+                        name="image"
+                        id=""
+                        class="input-text"
+                        placeholder="Введите url картинки"
+                    />
+                    <button type="submit" class="btn-sendFileByUrl btns">
+                        Отправить картинку
+                    </button>
+                </form>
+            </section>
+            <section class="wrapper-data data">
+                <h1 class="data-header">Ответ:</h1>
+                <div class="data-container">
+                    <div class="data-gradient">
+                        <div class="data-output">
+                            <!-- 7103845989
+                            6229f9d2d9df4c82aaafa42b2c3a4c7f59a0a0a318bf421086 -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <script src="js/main.js"></script>
+    </body>
+</html>
