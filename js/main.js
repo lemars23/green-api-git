@@ -2,12 +2,14 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     const greenApi = {
+        // Свойства
         idInstance: null,
         apiTokenInstance: null,
         messagePhoneNumber: null,
         message: null,
         imagePhoneNumber: null,
         urlImage: null,
+        // Элементы страницы
         formIdAndToken: document.querySelector(".input-formIdAndToken"),
         formSendMessage: document.querySelector(".input-formSendMessage"),
         formSendImage: document.querySelector(".input-formSendImage"),
@@ -17,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         btnSendFileByUrl: document.querySelector(".btn-sendFileByUrl"),
         dataOutput: document.querySelector(".data-output"),
 
+        // Метод отправки сообщения
         async sendMessage(chatId, message) {
             let response = await fetch(`https://api.green-api.com/waInstance${this.idInstance}/sendMessage/${this.apiTokenInstance}`, 
             {
@@ -27,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }});
             return response;
         },
+        // Метод отправки фотографии
         async sendFileByUrl(chatId, urlFile, fileName) {
             let caption = "Изображение";
             let response = await fetch(`https://api.green-api.com/waInstance${this.idInstance}/sendFileByUrl/${this.apiTokenInstance}`, 
@@ -38,52 +42,61 @@ document.addEventListener("DOMContentLoaded", () => {
             }});
             return response;
         },
+        // Метод получения настроек
         async getSettings() {
             let response = await fetch(`https://api.green-api.com/waInstance${this.idInstance}/getSettings/${this.apiTokenInstance}`);
             let strJson = await response.json();
             return strJson;
         },
+        // Метод получения StateInstance
         async getStateInstance() {
             let response = await fetch(`https://api.green-api.com/waInstance${this.idInstance}/getStateInstance/${this.apiTokenInstance}`);
             let strJson = await response.json();
             return strJson;
         },
+        // Уставнока значений idInstance и apiTokenInstance
         setValuesIdAndApi() {
             const idInstance = document.getElementsByName("idInstance")[0].value;
             const apiTokenInstance = document.getElementsByName("apiTokenInstance")[0].value;
             this.idInstance = idInstance;
             this.apiTokenInstance = apiTokenInstance;
         },
+        // Установка значений номера телефона и сообщения 
         setValuesMessagePhoneNumberAndMessage() {
             const messagePhoneNumber = document.getElementsByName("formSendMessage-phoneNumber")[0].value;
             const message = document.getElementsByName("message")[0].value;
             this.messagePhoneNumber = messagePhoneNumber;
             this.message = message;
         },
+        // Установка значений номера телефона и ссылки фотографии
         setValuesImagePhoneNumberAndUrl() {
             const imagePhoneNumber = document.getElementsByName("formSendImage-phoneNumber")[0].value;
             const urlImage = document.getElementsByName("url-image")[0].value;
             this.imagePhoneNumber = imagePhoneNumber;
             this.urlImage = urlImage;
         },
+        // Проверка значений idInstance и apiTokenInstance
         checkValuesIdAndApi() {
             if((this.idInstance != "" && this.apiTokenInstance != "") && (typeof this.idInstance == "string" && typeof this.apiTokenInstance == "string") && (this.idInstance != null && this.apiTokenInstance != null)) {
                 return true;
             }
             return false;
         },
+        // Проверка значений номера телефона и сообщения
         checkValuesMessagePhoneNumberAndMessage() {
             if((this.messagePhoneNumber != "" && this.message != "") && (typeof this.messagePhoneNumber == "string" && typeof this.message == "string") && (this.messagePhoneNumber != null && this.message != null)) {
                 return true;
             }
             return false;
         },
+        // Проверка номера телефона и ссылки фотографии
         checkValuesImagePhoneNumberAndUrlImage() {
             if((this.imagePhoneNumber != "" && this.urlImage != "") && (this.imagePhoneNumber != null && this.urlImage != null)) {
                 return true;
             }
             return false;
         },
+        // Оброботка данных настроек
         proccessingDataSettings() {
             document.querySelector(".data-output").innerHTML = "";
             if(this.checkValuesIdAndApi()) {
@@ -96,6 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.querySelector(".data-output").innerHTML = "<p class='data-error'>Введите верные данные IdInstance и ApiTokenInstance</p>";
             }
         },
+        // Получение данных настроек
         getDataSettings() {
             this.formIdAndToken.addEventListener("submit", event => {
                 event.preventDefault();
@@ -112,7 +126,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     this.proccessingDataSettings();
                 });
             });
-        }, 
+        },
+        // Оброботка данных StateInstance
         processingDataStateInstance() {
             document.querySelector(".data-output").innerHTML = "";
 
@@ -122,6 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
         },
+        // Получение данных StateInstance
         getDataStateInstance() {
             this.formIdAndToken.addEventListener("submit", event => {
                 event.preventDefault();
@@ -141,6 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         },
+        // Оброботка отправки сообщения
         proccessingSendMessage() {
             this.setValuesMessagePhoneNumberAndMessage();
             if(this.checkValuesMessagePhoneNumberAndMessage()) {
@@ -148,6 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.querySelector(".data-output").innerHTML = `<p class='data-success'>Сообщение отправлено</p>`;
             }
         },
+        // Получение отправки сообщения
         getSendMessage() {
             this.formSendMessage.addEventListener("submit", event => {
                 event.preventDefault();
@@ -165,6 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         },
+        // Оброботка отправки фотографии 
         proccessingSendFileByUrl() {
             this.setValuesImagePhoneNumberAndUrl();
 
@@ -180,6 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                                                     </data>`;
             }
         },
+        // Получение отправки фотографии
         getFileByUrl() {
             this.formSendImage.addEventListener("submit", event => {
                 event.preventDefault();
@@ -196,6 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         },
+        // Общий метод вызова
         getRender() {
             this.getDataStateInstance();
             this.getDataSettings();
