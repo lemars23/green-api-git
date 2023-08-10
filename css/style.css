@@ -156,3 +156,17 @@ input[type="text"] {
     margin: 0;
     padding: 2px;
 }
+
+.data-error {
+    text-align: center;
+    font-size: 2em;
+    color: red;
+    font-weight: bold;
+}
+
+.data-success {
+    text-align: center;
+    font-size: 2em;
+    color: green;
+    font-weight: bold;
+}
