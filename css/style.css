@@ -170,3 +170,14 @@ input[type="text"] {
     color: green;
     font-weight: bold;
 }
+
+.data-image-block {
+    text-align: center;
+}
+
+.data-image {
+    text-align: center;
+    padding: 1%;
+    min-height: 75%;
+    min-width: 75%;
+}

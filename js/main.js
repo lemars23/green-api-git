@@ -6,12 +6,15 @@ document.addEventListener("DOMContentLoaded", () => {
         apiTokenInstance: null,
         messagePhoneNumber: null,
         message: null,
+        imagePhoneNumber: null,
+        urlImage: null,
         formIdAndToken: document.querySelector(".input-formIdAndToken"),
         formSendMessage: document.querySelector(".input-formSendMessage"),
         formSendImage: document.querySelector(".input-formSendImage"),
         btnGetSettings: document.querySelector(".btn-getSettings"),
         btnGetStateInstance: document.querySelector(".btn-getStateInstance"),
         btnSendMessage: document.querySelector(".btn-sendMessage"),
+        btnSendFileByUrl: document.querySelector(".btn-sendFileByUrl"),
         dataOutput: document.querySelector(".data-output"),
 
         async sendMessage(chatId, message) {
@@ -24,7 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }});
             return response;
         },
-        async sendFileByUrl(chatId, urlFile, fileName, caption) {
+        async sendFileByUrl(chatId, urlFile, fileName) {
+            let caption = "Изображение";
             let response = await fetch(`https://api.green-api.com/waInstance${this.idInstance}/sendFileByUrl/${this.apiTokenInstance}`, 
             {
                 method: "POST",
@@ -50,11 +54,17 @@ document.addEventListener("DOMContentLoaded", () => {
             this.idInstance = idInstance;
             this.apiTokenInstance = apiTokenInstance;
         },
-        setValuesPhoneNumberAndMessage() {
+        setValuesMessagePhoneNumberAndMessage() {
             const messagePhoneNumber = document.getElementsByName("formSendMessage-phoneNumber")[0].value;
             const message = document.getElementsByName("message")[0].value;
             this.messagePhoneNumber = messagePhoneNumber;
             this.message = message;
+        },
+        setValuesImagePhoneNumberAndUrl() {
+            const imagePhoneNumber = document.getElementsByName("formSendImage-phoneNumber")[0].value;
+            const urlImage = document.getElementsByName("url-image")[0].value;
+            this.imagePhoneNumber = imagePhoneNumber;
+            this.urlImage = urlImage;
         },
         checkValuesIdAndApi() {
             if((this.idInstance != "" && this.apiTokenInstance != "") && (typeof this.idInstance == "string" && typeof this.apiTokenInstance == "string") && (this.idInstance != null && this.apiTokenInstance != null)) {
@@ -62,8 +72,14 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             return false;
         },
-        checkValuesPhoneNumberAndMessage() {
+        checkValuesMessagePhoneNumberAndMessage() {
             if((this.messagePhoneNumber != "" && this.message != "") && (typeof this.messagePhoneNumber == "string" && typeof this.message == "string") && (this.messagePhoneNumber != null && this.message != null)) {
+                return true;
+            }
+            return false;
+        },
+        checkValuesImagePhoneNumberAndUrlImage() {
+            if((this.imagePhoneNumber != "" && this.urlImage != "") && (this.imagePhoneNumber != null && this.urlImage != null)) {
                 return true;
             }
             return false;
@@ -75,10 +91,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     for(let item in json) {
                         document.querySelector(".data-output").innerHTML += `<p class='data-item'>Свойство: ${item} => ' ${json[item]} '</p>`;
                     }
-                    console.log(json);
                 });
             } else {
-                document.querySelector(".data-output").innerHTML = "<p class='data-error'>Введите верные данные</p>";
+                document.querySelector(".data-output").innerHTML = "<p class='data-error'>Введите верные данные IdInstance и ApiTokenInstance</p>";
             }
         },
         getDataSettings() {
@@ -118,12 +133,17 @@ document.addEventListener("DOMContentLoaded", () => {
                         event.preventDefault();
                         this.processingDataStateInstance();
                     });
+
+                    this.btnGetStateInstance.removeEventListener("click", event => {
+                        event.preventDefault();
+                        this.processingDataStateInstance();
+                    });
                 }
             });
         },
         proccessingSendMessage() {
-            this.setValuesPhoneNumberAndMessage();
-            if(this.checkValuesPhoneNumberAndMessage()) {
+            this.setValuesMessagePhoneNumberAndMessage();
+            if(this.checkValuesMessagePhoneNumberAndMessage()) {
                 this.sendMessage(this.messagePhoneNumber, this.message);
                 document.querySelector(".data-output").innerHTML = `<p class='data-success'>Сообщение отправлено</p>`;
             }
@@ -144,13 +164,45 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
                 }
             });
-        }
+        },
+        proccessingSendFileByUrl() {
+            this.setValuesImagePhoneNumberAndUrl();
 
+            if(this.checkValuesImagePhoneNumberAndUrlImage()) {
+                document.querySelector(".data-output").innerHTML = "";
+                let divideUrlImage = this.urlImage.split("/");
+                let indexImage = divideUrlImage[divideUrlImage.length - 1];
+                this.sendFileByUrl(this.imagePhoneNumber, this.urlImage, indexImage);
+                document.querySelector(".data-output").innerHTML += `<p class='data-success'>Изображение отправлено</p>`;
+                document.querySelector(".data-output").innerHTML += `
+                                                                    <p class='data-image-block'>
+                                                                        <img src="${this.urlImage}" alt="Изображение" class='data-image'>
+                                                                    </data>`;
+            }
+        },
+        getFileByUrl() {
+            this.formSendImage.addEventListener("submit", event => {
+                event.preventDefault();
+                this.setValuesIdAndApi();
+                if(this.checkValuesIdAndApi()) {
+                    this.btnSendFileByUrl.addEventListener("click", event => {
+                        event.preventDefault();
+                        this.proccessingSendFileByUrl();
+                    });
+                    this.btnSendFileByUrl.removeEventListener("click", event => {
+                        event.preventDefault();
+                        this.proccessingSendFileByUrl();
+                    });
+                }
+            });
+        },
+        getRender() {
+            this.getDataStateInstance();
+            this.getDataSettings();
+            this.getSendMessage();
+            this.getFileByUrl();
+        }
         
     };
-    greenApi.getDataStateInstance();
-
-    greenApi.getDataSettings();
-
-    greenApi.getSendMessage();
+    greenApi.getRender();
 });
